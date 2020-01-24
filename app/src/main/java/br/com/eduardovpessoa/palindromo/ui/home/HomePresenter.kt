@@ -33,7 +33,7 @@ class HomePresenter(var view: HomeContract.View?) : HomeContract.Presenter, Coro
 
     override fun loadWords() {
         launch {
-            //wordDao.queryAll().toList(wordList)
+            wordList = wordDao.queryAll()
             withContext(Dispatchers.Main) {
                 view?.setAdapter(wordList)
             }
@@ -42,8 +42,22 @@ class HomePresenter(var view: HomeContract.View?) : HomeContract.Presenter, Coro
 
     override fun verifyWord(name: String) {
         when (name.reversed().equals(name, true)) {
-            true -> insertWord(Word(name = name, isPalindromo = true))
-            else -> insertWord(Word(name = name))
+            true -> {
+                launch {
+                    insertWord(Word(name = name, isPalindromo = true))
+                    withContext(Dispatchers.Main) {
+                        view?.showMessage("A palavra $name é um palíndromo!")
+                    }
+                }
+            }
+            else -> {
+                launch {
+                    insertWord(Word(name = name))
+                    withContext(Dispatchers.Main) {
+                        view?.showMessage("A palavra $name não é um palíndromo!")
+                    }
+                }
+            }
         }
     }
 

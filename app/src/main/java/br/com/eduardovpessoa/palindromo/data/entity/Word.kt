@@ -11,4 +11,11 @@ data class Word(
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "is_palindromo") val isPalindromo: Boolean? = false,
     @ColumnInfo(name = "registred") val registred: Date? = Date()
-)
+
+
+) {
+    override fun toString(): String {
+        return "$id - $name"
+    }
+}
+

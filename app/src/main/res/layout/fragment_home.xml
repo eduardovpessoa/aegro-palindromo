@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtWord"
+        android:id="@+id/lblWord"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,9 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtWord"
+        app:layout_constraintBottom_toBottomOf="@+id/lblWord"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtWord"
+        app:layout_constraintTop_toTopOf="@+id/lblWord"
         app:srcCompat="@drawable/ic_spellcheck" />
 
 
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWord" />
+        app:layout_constraintTop_toBottomOf="@+id/lblWord" />
 
     <ImageView
         android:id="@+id/imgWordsHistory"

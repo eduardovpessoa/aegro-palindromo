@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.eduardovpessoa.palindromo.R
 import br.com.eduardovpessoa.palindromo.data.entity.Word
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), HomeContract.View {
 
     private var presenter: HomeContract.Presenter? = null
     private lateinit var layout: View
+    private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,12 +28,13 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         layout = view.findViewById(R.id.homeLayout)
+        initViews()
     }
 
     override fun initViews() {
         presenter = HomePresenter(this)
+        imgCheck.setOnClickListener { onClickVerify() }
         recyclerHome.layoutManager = LinearLayoutManager(context)
         recyclerHome.addItemDecoration(
             DividerItemDecoration(
@@ -41,8 +44,17 @@ class HomeFragment : Fragment(), HomeContract.View {
         )
     }
 
+    override fun onClickVerify() {
+        presenter?.verifyWord(edtWord.text.toString().trim())
+    }
+
     override fun setAdapter(list: MutableList<Word>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        adapter = HomeAdapter(list)
+        recyclerHome.adapter = adapter
+    }
+
+    override fun showMessage(name: String) {
+        Snackbar.make(layout, name, Snackbar.LENGTH_LONG)
     }
 
     override fun onDetach() {
